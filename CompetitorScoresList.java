@@ -54,4 +54,8 @@ public class CompetitorScoresList {
         }
         return null;
     }
+
+    public ArrayList<CompetitorScores> getCompetitorScoresList() {
+        return competitorScoresList;
+    }
 }
