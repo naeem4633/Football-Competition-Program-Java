@@ -1,2 +1,34 @@
 Competitors Table:
 -------------------------------------------------------
+Competitor 1:	Name: John Doe	Date of Birth: 1990-05-15	Category: Men's Singles	Age: 22	Email: johndoe@example.com
+-------------------------------------------------------
+Competitor 2:	Name: Jane Smith	Date of Birth: 1988-12-20	Category: Women's Singles	Age: 34	Email: janesmith@example.com
+-------------------------------------------------------
+Competitor 3:	Name: Michael Johnson	Date of Birth: 1995-08-10	Category: Men's Singles	Age: 32	Email: michaeljohnson@example.com
+-------------------------------------------------------
+Competitor 4:	Name: Emily White	Date of Birth: 1992-03-25	Category: Women's Singles	Age: 23	Email: emilywhite@example.com
+-------------------------------------------------------
+Competitor 5:	Name: Chris Williams	Date of Birth: 1987-06-08	Category: Men's Singles	Age: 44	Email: chriswilliams@example.com
+-------------------------------------------------------
+Competitor 6:	Name: Sophia Brown	Date of Birth: 1993-09-18	Category: Women's Singles	Age: 23	Email: sophiabrown@example.com
+-------------------------------------------------------
+Competitor 7:	Name: Matthew Miller	Date of Birth: 1989-11-30	Category: Men's Singles	Age: 19	Email: matthewmiller@example.com
+-------------------------------------------------------
+Competitor 8:	Name: Olivia Jones	Date of Birth: 1996-04-12	Category: Women's Singles	Age: 42	Email: oliviajones@example.com
+-------------------------------------------------------
+Competitor 9:	Name: Alex Anderson	Date of Birth: 1985-07-24	Category: Men's Singles	Age: 38	Email: alexanderson@example.com
+-------------------------------------------------------
+Competitor 10:	Name: Emma Thomas	Date of Birth: 1991-02-05	Category: Women's Singles	Age: 18	Email: emmathomas@example.com
+-------------------------------------------------------
+
+Details of the Competitor with the Highest Overall Score: 
+John Doe
+-------------------------------------------------------
+
+Summary Statistics:
+-------------------------------------------------------
+Maximum Overall Score: 9
+Minimum Overall Score: 2
+
+Frequency Report: {1=25, 2=14, 3=10, 4=9, 5=10}
+-------------------------------------------------------

@@ -31,15 +31,16 @@ public class CompetitorList {
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 int number = Integer.parseInt(data[0]);
                 String firstName = data[1];
                 String lastName = data[2];
-                String dateOfBirth = data[3];
-                String category = data[4];
-                int age = Integer.parseInt(data[5]);
-                String email = data[6];
+                String email = data[3];
+                String dateOfBirth = data[4];
+                String category = data[5];
+                int age = Integer.parseInt(data[6]);
 
                 Competitor competitor = new Competitor(number, new Name(firstName, lastName), dateOfBirth, category,
                         age, email);
