@@ -9,6 +9,7 @@ public class Manager {
 
     public static void main(String[] args) {
         generateReport("FinalReport.txt");
+        amendSampleCompetitorDetails();
     }
 
     private static void generateReport(String fileName) {
@@ -57,6 +58,39 @@ public class Manager {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void amendSampleCompetitorDetails() {
+        try {
+            // Create a sample Competitor for modification
+            Competitor sampleCompetitor = new Competitor(3, new Name("John", "Doe"), "2000-01-01", "Category", 25,
+                    "john.doe@example.com");
+
+            // Creating a sample Officials object
+            Officials officials = new Officials(1, new Name("Official", "Person"), 2);
+
+            // Create a modified Competitor
+            Competitor modifiedCompetitor = new Competitor(3, new Name("Updated", "Person"), "1995-05-05",
+                    "New Category", 27, "updated.person@example.com");
+
+            // Amend the details using Officials class
+            officials.amendCompetitorDetails(sampleCompetitor, modifiedCompetitor, "Competitors.csv");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static int getCompetitorNumber() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("Enter Competitor Number: ");
+        try {
+            return Integer.parseInt(reader.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid competitor number.");
+            return getCompetitorNumber(); // Recursive call until a valid number is entered
         }
     }
 

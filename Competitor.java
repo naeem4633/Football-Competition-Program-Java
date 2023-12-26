@@ -63,4 +63,26 @@ public class Competitor {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void registerForCompetition(Competition competition) {
+        // Check if the competitor is not already registered for the competition
+        if (!competition.getCompetitors().contains(this)) {
+            // Check if the competitor's email is not already registered for the competition
+            if (!competition.hasCompetitorWithEmailAndCategory(this.getEmail(),
+                    this.getCategory())) {
+                // Add the competitor to the competition
+                competition.addCompetitor(this);
+                System.out.println(
+                        "Competitor " + this.getNumber() + " registered for competition " +
+                                competition.getName());
+            } else {
+                System.out
+                        .println("Competitor with email " + this.getEmail() + " is already registered for competition "
+                                + competition.getName());
+            }
+        } else {
+            System.out.println("Competitor " + this.getNumber() + " is already registered for competition "
+                    + competition.getName());
+        }
+    }
 }

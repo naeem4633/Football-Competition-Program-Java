@@ -31,7 +31,6 @@ public class CompetitorList {
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
-            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 int number = Integer.parseInt(data[0]);
@@ -94,6 +93,78 @@ public class CompetitorList {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Competitor getCompetitorByNumber(int number) {
+        for (Competitor competitor : competitors) {
+            if (competitor.getNumber() == number) {
+                return competitor;
+            }
+        }
+        return null; // Return null if no competitor with the specified number is found
+    }
+
+    public void amendCompetitorDetails(Competitor competitor, Competitor modifiedCompetition,
+            String competitorsFileName) throws IOException {
+        // Assuming Competitor class has appropriate setters for modification
+        competitor.setName(modifiedCompetition.getName());
+        competitor.setDateOfBirth(modifiedCompetition.getDateOfBirth());
+        competitor.setCategory(modifiedCompetition.getCategory());
+        competitor.setAge(modifiedCompetition.getAge());
+        competitor.setEmail(modifiedCompetition.getEmail());
+
+        // Update the details in the Competitors.csv file
+        updateCompetitorDetailsInCSV(competitorsFileName, competitor);
+    }
+
+    private void updateCompetitorDetailsInCSV(String fileName, Competitor competitor) {
+        ArrayList<Competitor> competitors = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                int number = Integer.parseInt(data[0]);
+                if (number == competitor.getNumber()) {
+                    // Update the details for the specific competitor
+                    data[1] = competitor.getName().getFirstName();
+                    data[2] = competitor.getName().getLastName();
+                    data[3] = competitor.getDateOfBirth();
+                    data[4] = competitor.getCategory();
+                    data[5] = Integer.toString(competitor.getAge());
+                    data[6] = competitor.getEmail();
+                }
+
+                Competitor updatedCompetitor = new Competitor(number, new Name(data[1],
+                        data[2]), data[3], data[4],
+                        Integer.parseInt(data[5]), data[6]);
+                competitors.add(updatedCompetitor);
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        // Write the updated list of competitors back to the file
+        writeCompetitorsToCSV();
+    }
+
+    public Competitor removeAndReturnCompetitor(int competitorNumber) {
+        Competitor removedCompetitor = null;
+
+        for (int i = 0; i < competitors.size(); i++) {
+            Competitor competitor = competitors.get(i);
+            if (competitor.getNumber() == competitorNumber) {
+                removedCompetitor = competitors.remove(i);
+                break;
+            }
+        }
+
+        if (removedCompetitor != null) {
+            // Update the CSV file after removing the competitor
+            writeCompetitorsToCSV();
+        }
+
+        return removedCompetitor;
     }
 
 }

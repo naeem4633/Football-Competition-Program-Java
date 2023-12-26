@@ -29,16 +29,17 @@ public class Officials extends Staff {
                 int number = Integer.parseInt(data[0]);
                 if (number == competitor.getNumber()) {
                     // Update the details for the specific competitor
+                    data[0] = Integer.toString(competitor.getNumber());
                     data[1] = competitor.getName().getFirstName();
                     data[2] = competitor.getName().getLastName();
-                    data[3] = competitor.getDateOfBirth();
-                    data[4] = competitor.getCategory();
-                    data[5] = Integer.toString(competitor.getAge());
-                    data[6] = competitor.getEmail();
+                    data[3] = competitor.getEmail();
+                    data[4] = competitor.getDateOfBirth();
+                    data[5] = competitor.getCategory();
+                    data[6] = Integer.toString(competitor.getAge());
                 }
 
-                Competitor updatedCompetitor = new Competitor(number, new Name(data[1], data[2]), data[3], data[4],
-                        Integer.parseInt(data[5]), data[6]);
+                Competitor updatedCompetitor = new Competitor(number, new Name(data[1], data[2]), data[4], data[5],
+                        Integer.parseInt(data[6]), data[3]);
                 competitors.add(updatedCompetitor);
             }
         } catch (IOException | NumberFormatException e) {
@@ -55,10 +56,10 @@ public class Officials extends Staff {
                 writer.write(competitor.getNumber() + "," +
                         competitor.getName().getFirstName() + "," +
                         competitor.getName().getLastName() + "," +
+                        competitor.getEmail() + "," +
                         competitor.getDateOfBirth() + "," +
                         competitor.getCategory() + "," +
-                        competitor.getAge() + "," +
-                        competitor.getEmail() + "\n");
+                        competitor.getAge() + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();

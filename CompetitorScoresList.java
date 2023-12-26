@@ -19,7 +19,6 @@ public class CompetitorScoresList {
 
         try (BufferedReader br = new BufferedReader(new FileReader(scoresFileName))) {
             String line;
-            br.readLine(); // Skip the header line
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 int competitorID = Integer.parseInt(data[0]);
@@ -57,5 +56,64 @@ public class CompetitorScoresList {
 
     public ArrayList<CompetitorScores> getCompetitorScoresList() {
         return competitorScoresList;
+    }
+
+    public void recordScores(CompetitorScores competitorScores, String
+    scoresFileName) {
+    try (BufferedWriter writer = new BufferedWriter(new
+    FileWriter(scoresFileName, true))) {
+    // Append new scores to the CSV file
+    writer.write(competitorScores.getCompetitor().getNumber() + ",");
+
+    int[] scores = competitorScores.getScores();
+    for (int score : scores) {
+    writer.write(score + ",");
+    }
+    writer.write("\n");
+
+    } catch (IOException e) {
+    e.printStackTrace();
+    }
+    }
+
+    public void amendScores(int competitorID, int competitionID, int[] newScores,
+    String scoresFileName) {
+    CompetitorScores targetScores = null;
+
+    for (CompetitorScores scores : competitorScoresList) {
+    if (scores.getCompetitorNumber() == competitorID) {
+    // Found the target scores
+    targetScores = scores;
+    break;
+    }
+    }
+
+    if (targetScores != null) {
+    // Update the scores
+    targetScores.setScores(newScores);
+
+    // Update the details in the CompetitorScores.csv file
+    updateScoresInCSV(scoresFileName, competitorScoresList);
+    } else {
+    System.out.println(
+    "Scores not found for Competitor ID " + competitorID + " and Competition ID "
+    + competitionID);
+    }
+    }
+
+    private void updateScoresInCSV(String fileName, ArrayList<CompetitorScores>
+    scoresList) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+    for (CompetitorScores scores : scoresList) {
+    writer.write(scores.getCompetitorNumber() + "," +
+    1 + "," +
+    scores.getScores()[0] + "," +
+    scores.getScores()[1] + "," +
+    scores.getScores()[2] + "," +
+    scores.getScores()[3] + "\n");
+    }
+    } catch (IOException e) {
+    e.printStackTrace();
+    }
     }
 }

@@ -46,4 +46,14 @@ public class Competition {
     public void removeCompetitor(int competitorNumber) {
         competitorList.removeCompetitor(competitorNumber);
     }
+
+    public boolean hasCompetitorWithEmailAndCategory(String email, String category) {
+        for (Competitor competitor : competitorList.getCompetitors()) {
+            if (competitor.getEmail().equals(email) &&
+                    competitor.getCategory().equals(category)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
