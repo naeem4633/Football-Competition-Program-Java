@@ -38,4 +38,12 @@ public class Competition {
     public void displayCompetitionInfo() {
         // Implement logic to display competition information
     }
+
+    public void addCompetitor(Competitor competitor) {
+        competitorList.addCompetitor(competitor);
+    }
+
+    public void removeCompetitor(int competitorNumber) {
+        competitorList.removeCompetitor(competitorNumber);
+    }
 }

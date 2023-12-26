@@ -58,4 +58,42 @@ public class CompetitorList {
         return competitors;
     }
 
+    public void addCompetitor(Competitor newCompetitor) {
+        competitors.add(newCompetitor);
+
+        // Update the CSV file after adding the competitor
+        writeCompetitorsToCSV();
+    }
+
+    public void removeCompetitor(int competitorNumber) {
+        Competitor competitorToRemove = null;
+        for (Competitor competitor : competitors) {
+            if (competitor.getNumber() == competitorNumber) {
+                competitorToRemove = competitor;
+                break;
+            }
+        }
+
+        if (competitorToRemove != null) {
+            competitors.remove(competitorToRemove);
+            writeCompetitorsToCSV();
+        }
+    }
+
+    private void writeCompetitorsToCSV() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Competitors.csv"))) {
+            for (Competitor competitor : competitors) {
+                writer.write(competitor.getNumber() + "," +
+                        competitor.getName().getFirstName() + "," +
+                        competitor.getName().getLastName() + "," +
+                        competitor.getDateOfBirth() + "," +
+                        competitor.getCategory() + "," +
+                        competitor.getAge() + "," +
+                        competitor.getEmail() + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
