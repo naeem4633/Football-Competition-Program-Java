@@ -26,6 +26,35 @@ public class CompetitorList {
         }
     }
 
+    public void displaySingleCompetitorInGUI(int competitorNumber, JTextArea textArea) {
+        Competitor competitor = getCompetitorByNumber(competitorNumber);
+
+        if (competitor != null) {
+            textArea.setText(""); // Clear existing text
+            textArea.append("Details of Competitor " + competitor.getNumber() + ":\n");
+            textArea.append("Name: " + competitor.getName().getFullName() + "\n");
+            textArea.append("Date of Birth: " + competitor.getDateOfBirth() + "\n");
+            textArea.append("Category: " + competitor.getCategory() + "\n");
+            textArea.append("Age: " + competitor.getAge() + "\n");
+            textArea.append("Email: " + competitor.getEmail() + "\n");
+            textArea.append("-------------------------------------------------------\n");
+        } else {
+            textArea.setText("Competitor with number " + competitorNumber + " not found.");
+        }
+    }
+
+    public void displayCompetitorsInGUI(JTextArea textArea) {
+        for (Competitor competitor : this.competitors) {
+            textArea.append("Competitor " + competitor.getNumber() + ":\t");
+            textArea.append("Name: " + competitor.getName().getFullName() + "\t");
+            textArea.append("Date of Birth: " + competitor.getDateOfBirth() + "\t");
+            textArea.append("Category: " + competitor.getCategory() + "\t");
+            textArea.append("Age: " + competitor.getAge() + "\t");
+            textArea.append("Email: " + competitor.getEmail() + "\n");
+            textArea.append("-------------------------------------------------------\n");
+        }
+    }
+
     private static ArrayList<Competitor> readCompetitorsFromCSV(String fileName) {
         ArrayList<Competitor> competitors = new ArrayList<>();
 
