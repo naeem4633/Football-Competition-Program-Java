@@ -112,6 +112,24 @@ public class CompetitorGUI {
             }
         });
 
+        JButton sortAlphabeticallyButton = new JButton("Show Competitors List: Sort Alphabetically");
+        sortAlphabeticallyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsAlphabetically();
+                viewCompetitors(textArea);
+            }
+        });
+
+        JButton sortByIdButton = new JButton("Show Competitors List: Sort by Competitor Number");
+        sortByIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsById();
+                viewCompetitors(textArea);
+            }
+        });
+
         frame.setLayout(new FlowLayout());
 
         frame.add(viewCompetitorsButton);
@@ -119,6 +137,8 @@ public class CompetitorGUI {
         frame.add(viewScoresButton);
         frame.add(searchCompetitorButton);
         frame.add(selfRegistrationButton);
+        frame.add(sortAlphabeticallyButton);
+        frame.add(sortByIdButton);
 
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -187,6 +207,24 @@ public class CompetitorGUI {
             }
         });
 
+        JButton sortAlphabeticallyButton = new JButton("Show Competitors List: Sort Alphabetically");
+        sortAlphabeticallyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsAlphabetically();
+                viewCompetitors(textArea);
+            }
+        });
+
+        JButton sortByIdButton = new JButton("Show Competitors List: Sort by Competitor Number");
+        sortByIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsById();
+                viewCompetitors(textArea);
+            }
+        });
+
         frame.setLayout(new FlowLayout());
 
         frame.add(generateReportButton);
@@ -196,6 +234,8 @@ public class CompetitorGUI {
         frame.add(addCompetitorButton);
         frame.add(removeCompetitorButton);
         frame.add(amendCompetitorButton);
+        frame.add(sortAlphabeticallyButton);
+        frame.add(sortByIdButton);
 
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -248,6 +288,24 @@ public class CompetitorGUI {
             }
         });
 
+        JButton sortAlphabeticallyButton = new JButton("Show Competitors List: Sort Alphabetically");
+        sortAlphabeticallyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsAlphabetically();
+                viewCompetitors(textArea);
+            }
+        });
+
+        JButton sortByIdButton = new JButton("Show Competitors List: Sort by Competitor Number");
+        sortByIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsById();
+                viewCompetitors(textArea);
+            }
+        });
+
         frame.setLayout(new FlowLayout());
 
         frame.add(generateReportButton);
@@ -255,6 +313,8 @@ public class CompetitorGUI {
         frame.add(searchCompetitorButton);
         frame.add(recordScoresButton);
         frame.add(amendScoresButton);
+        frame.add(sortAlphabeticallyButton);
+        frame.add(sortByIdButton);
 
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -426,6 +486,14 @@ public class CompetitorGUI {
         textArea.setText("");
         competitorList.displayCompetitorsInGUI(textArea);
         System.out.println("Competitors displayed in the GUI.");
+    }
+
+    private void sortCompetitorsAlphabetically() {
+        competitorList.sortCompetitorsAlphabetically();
+    }
+
+    private void sortCompetitorsById() {
+        competitorList.sortCompetitorsById();
     }
 
     private void searchCompetitor(JTextArea textArea) {

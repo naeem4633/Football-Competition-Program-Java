@@ -4,6 +4,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import javax.swing.JTextArea;
 
 public class CompetitorList {
@@ -24,6 +27,14 @@ public class CompetitorList {
             writer.write("Email: " + competitor.getEmail() + "\n");
             writer.write("-------------------------------------------------------\n");
         }
+    }
+
+    public void sortCompetitorsAlphabetically() {
+        Collections.sort(competitors, Comparator.comparing(c -> c.getName().getFullName()));
+    }
+
+    public void sortCompetitorsById() {
+        Collections.sort(competitors, Comparator.comparingInt(Competitor::getNumber));
     }
 
     public void displaySingleCompetitorInGUI(int competitorNumber, JTextArea textArea) {
