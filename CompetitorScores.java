@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class CompetitorScores {
 
     private Competitor competitor;
@@ -42,4 +44,43 @@ public class CompetitorScores {
         return formattedScores.toString();
     }
 
+    public String getFullDetails() {
+        return "Competitor number " + competitor.getNumber() + ", name " +
+                competitor.getName().getFullName() + ". " +
+                competitor.getName().getFirstName() + " is a " +
+                competitor.getCategory() + " aged " + competitor.getAge() +
+                " and has an overall score of " + getWeightedAverageScore() + ".";
+    }
+
+    public String getShortDetails() {
+        return "CN " + competitor.getNumber() + " (" + getInitials() +
+                ") has overall score " + getWeightedAverageScore() + ".";
+    }
+
+    private String getInitials() {
+        // Get the first letter of each part of the name
+        String firstNameInitial = String.valueOf(competitor.getName().getFirstName().charAt(0));
+        String lastNameInitial = String.valueOf(competitor.getName().getLastName().charAt(0));
+        return firstNameInitial + lastNameInitial;
+    }
+
+    public double getWeightedAverageScore() {
+        int totalOverallScore = 0;
+        int totalWeight = 0;
+
+        int[] scores = this.getScores();
+        int[] weights = { 1, 2, 3, 4, 5 };
+
+        for (int i = 0; i < scores.length; i++) {
+            totalOverallScore += scores[i] * weights[i];
+            totalWeight += weights[i];
+        }
+
+        // Avoid division by zero
+        if (totalWeight == 0) {
+            return 0.0;
+        }
+
+        return (double) totalOverallScore / totalWeight;
+    }
 }

@@ -106,26 +106,40 @@ public class Result {
         return frequencyMap;
     }
 
-    // Find the average overall score of a single competitor across all competitions
-    public double getAverageScore(int competitorNumber, ArrayList<CompetitorScores> competitorScoresList) {
+    public double getWeightedAverageScore(int competitorNumber, ArrayList<CompetitorScores> competitorScoresList) {
         int totalOverallScore = 0;
-        int totalCompetitions = 0;
+        int totalWeight = 0;
 
         for (CompetitorScores competitorScores : competitorScoresList) {
             if (competitorScores.getCompetitor().getNumber() == competitorNumber) {
                 int[] scores = competitorScores.getScores();
-                int totalScore = calculateTotalScore(scores);
+                int totalScore = calculateWeightedScore(scores);
                 totalOverallScore += totalScore;
-                totalCompetitions++;
+                totalWeight += scores.length; // Assuming each score has a weight
             }
         }
 
         // Avoid division by zero
-        if (totalCompetitions == 0) {
+        if (totalWeight == 0) {
             return 0.0;
         }
 
-        return (double) totalOverallScore / totalCompetitions;
+        return (double) totalOverallScore / totalWeight;
+    }
+
+    // Helper method to calculate the weighted score
+    private int calculateWeightedScore(int[] scores) {
+        int totalScore = 0;
+
+        // Define weights for each score
+        int[] weights = { 1, 2, 3, 4, 5 };
+
+        // Calculate the weighted score
+        for (int i = 0; i < scores.length; i++) {
+            totalScore += scores[i] * weights[i];
+        }
+
+        return totalScore;
     }
 
     private int calculateTotalScore(int[] scores) {

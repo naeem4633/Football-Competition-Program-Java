@@ -116,7 +116,7 @@ public class Manager {
 
                 // Display average score of the competitor
                 Result result = new Result(0, null, null, null);
-                double averageScore = result.getAverageScore(competitor.getNumber(),
+                double averageScore = result.getWeightedAverageScore(competitor.getNumber(),
                         competitorScoresList.getCompetitorScoresList());
 
                 System.out.println("Average Score: " + averageScore);

@@ -130,6 +130,14 @@ public class CompetitorGUI {
             }
         });
 
+        JButton viewCompetitorDetailsButton = new JButton("View Competitor Details");
+        viewCompetitorDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewCompetitorDetails();
+            }
+        });
+
         frame.setLayout(new FlowLayout());
 
         frame.add(viewCompetitorsButton);
@@ -139,6 +147,7 @@ public class CompetitorGUI {
         frame.add(selfRegistrationButton);
         frame.add(sortAlphabeticallyButton);
         frame.add(sortByIdButton);
+        frame.add(viewCompetitorDetailsButton);
 
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -225,6 +234,14 @@ public class CompetitorGUI {
             }
         });
 
+        JButton viewCompetitorDetailsButton = new JButton("View Competitor Details");
+        viewCompetitorDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewCompetitorDetails();
+            }
+        });
+
         frame.setLayout(new FlowLayout());
 
         frame.add(generateReportButton);
@@ -236,6 +253,7 @@ public class CompetitorGUI {
         frame.add(amendCompetitorButton);
         frame.add(sortAlphabeticallyButton);
         frame.add(sortByIdButton);
+        frame.add(viewCompetitorDetailsButton);
 
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -306,6 +324,14 @@ public class CompetitorGUI {
             }
         });
 
+        JButton viewCompetitorDetailsButton = new JButton("View Competitor Details");
+        viewCompetitorDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewCompetitorDetails();
+            }
+        });
+
         frame.setLayout(new FlowLayout());
 
         frame.add(generateReportButton);
@@ -315,6 +341,7 @@ public class CompetitorGUI {
         frame.add(amendScoresButton);
         frame.add(sortAlphabeticallyButton);
         frame.add(sortByIdButton);
+        frame.add(viewCompetitorDetailsButton);
 
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
@@ -686,5 +713,43 @@ public class CompetitorGUI {
                     "Email " + competitor.getEmail() + " already exists. Register under a different category.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void viewCompetitorDetails() {
+        String competitorIDInput = JOptionPane.showInputDialog("Enter Competitor ID:");
+
+        if (competitorIDInput != null && !competitorIDInput.isEmpty()) {
+            int competitorID = Integer.parseInt(competitorIDInput);
+
+            // Retrieve CompetitorScores for the given Competitor ID
+            CompetitorScores competitorScores = competitorScoresList.getCompetitorScoresByNumber(competitorID);
+
+            if (competitorScores != null) {
+                Competitor competitor = competitorScores.getCompetitor();
+
+                Object[] options = { "View Full Details", "View Short Details" };
+                int choice = JOptionPane.showOptionDialog(frame, "Select Details Type:",
+                        "View Competitor Details", JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+                if (choice == 0) {
+                    // View Full Details
+                    showDetailsDialog(competitorScores.getFullDetails());
+                } else if (choice == 1) {
+                    // View Short Details
+                    showDetailsDialog(competitorScores.getShortDetails());
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Competitor with ID " + competitorID + " not found.");
+            }
+        }
+    }
+
+    private void showDetailsDialog(String details) {
+        JTextArea detailsArea = new JTextArea(details);
+        JScrollPane scrollPane = new JScrollPane(detailsArea);
+
+        JOptionPane.showMessageDialog(frame, scrollPane, "Competitor Details",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
