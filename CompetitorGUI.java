@@ -26,7 +26,6 @@ public class CompetitorGUI {
     public void createAndShowRoleSelection() {
         String[] roles = { "Competitor", "Official", "Staff Member", "Audience" };
         JComboBox<String> roleComboBox = new JComboBox<>(roles);
-        System.out.println(competitorList);
 
         JButton proceedButton = new JButton("Proceed");
         proceedButton.addActionListener(new ActionListener() {
@@ -51,28 +50,39 @@ public class CompetitorGUI {
     }
 
     private void openRoleWindow(String role) {
-        switch (role) {
-            case "Competitor":
-                openCompetitorWindow();
-                break;
-            case "Official":
-                openOfficialWindow();
-                break;
-            case "Staff Member":
-                openStaffWindow();
-                break;
-            case "Audience":
-                openAudienceWindow();
-                break;
-        }
-    }
-
-    private void openCompetitorWindow() {
         frame.getContentPane().removeAll();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        switch (role) {
+            case "Competitor":
+                addCompetitorTab(tabbedPane);
+                break;
+            case "Official":
+                addOfficialTab(tabbedPane);
+                break;
+            case "Staff Member":
+                addStaffTab(tabbedPane);
+                break;
+            case "Audience":
+                addAudienceTab(tabbedPane);
+                break;
+        }
+
+        frame.getContentPane().add(tabbedPane);
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    private void addCompetitorTab(JTabbedPane tabbedPane) {
+        JPanel competitorPanel = new JPanel();
+        competitorPanel.setLayout(new BorderLayout());
+
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        competitorPanel.add(scrollPane, BorderLayout.CENTER);
 
         JButton viewCompetitorsButton = new JButton("View Competitors");
         viewCompetitorsButton.addActionListener(new ActionListener() {
@@ -95,14 +105,6 @@ public class CompetitorGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 searchCompetitor(textArea);
-            }
-        });
-
-        JButton viewScoresButton = new JButton("View Scores");
-        viewScoresButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewScores();
             }
         });
 
@@ -140,27 +142,27 @@ public class CompetitorGUI {
             }
         });
 
-        frame.setLayout(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
+        buttonPanel.add(viewCompetitorsButton);
+        buttonPanel.add(generateReportButton);
+        buttonPanel.add(searchCompetitorButton);
+        buttonPanel.add(selfRegistrationButton);
+        buttonPanel.add(sortAlphabeticallyButton);
+        buttonPanel.add(sortByIdButton);
+        buttonPanel.add(viewCompetitorDetailsButton);
 
-        frame.add(viewCompetitorsButton);
-        frame.add(generateReportButton);
-        frame.add(viewScoresButton);
-        frame.add(searchCompetitorButton);
-        frame.add(selfRegistrationButton);
-        frame.add(sortAlphabeticallyButton);
-        frame.add(sortByIdButton);
-        frame.add(viewCompetitorDetailsButton);
+        competitorPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        tabbedPane.addTab("Competitor", competitorPanel);
     }
 
-    private void openOfficialWindow() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void addOfficialTab(JTabbedPane tabbedPane) {
+        JPanel officialPanel = new JPanel();
+        officialPanel.setLayout(new BorderLayout());
+
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        officialPanel.add(scrollPane, BorderLayout.CENTER);
 
         JButton generateReportButton = new JButton("Generate Report");
         generateReportButton.addActionListener(new ActionListener() {
@@ -178,19 +180,19 @@ public class CompetitorGUI {
             }
         });
 
-        JButton viewScoresButton = new JButton("View Scores");
-        viewScoresButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewScores();
-            }
-        });
-
         JButton recordScoresButton = new JButton("Record Scores");
         recordScoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 recordScores();
+            }
+        });
+
+        JButton amendScoresButton = new JButton("Amend Scores");
+        recordScoresButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                amendScores();
             }
         });
 
@@ -244,29 +246,30 @@ public class CompetitorGUI {
             }
         });
 
-        frame.setLayout(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
+        buttonPanel.add(generateReportButton);
+        buttonPanel.add(searchCompetitorButton);
+        buttonPanel.add(recordScoresButton);
+        buttonPanel.add(amendScoresButton);
+        buttonPanel.add(addCompetitorButton);
+        buttonPanel.add(removeCompetitorButton);
+        buttonPanel.add(amendCompetitorButton);
+        buttonPanel.add(sortAlphabeticallyButton);
+        buttonPanel.add(sortByIdButton);
+        buttonPanel.add(viewCompetitorDetailsButton);
 
-        frame.add(generateReportButton);
-        frame.add(viewScoresButton);
-        frame.add(searchCompetitorButton);
-        frame.add(recordScoresButton);
-        frame.add(addCompetitorButton);
-        frame.add(removeCompetitorButton);
-        frame.add(amendCompetitorButton);
-        frame.add(sortAlphabeticallyButton);
-        frame.add(sortByIdButton);
-        frame.add(viewCompetitorDetailsButton);
+        officialPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        tabbedPane.addTab("Official", officialPanel);
     }
 
-    private void openStaffWindow() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void addStaffTab(JTabbedPane tabbedPane) {
+        JPanel staffPanel = new JPanel();
+        staffPanel.setLayout(new BorderLayout());
+
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        staffPanel.add(scrollPane, BorderLayout.CENTER);
 
         JButton generateReportButton = new JButton("Generate Report");
         generateReportButton.addActionListener(new ActionListener() {
@@ -284,14 +287,6 @@ public class CompetitorGUI {
             }
         });
 
-        JButton viewScoresButton = new JButton("View Scores");
-        viewScoresButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewScores();
-            }
-        });
-
         JButton recordScoresButton = new JButton("Record Scores");
         recordScoresButton.addActionListener(new ActionListener() {
             @Override
@@ -301,7 +296,7 @@ public class CompetitorGUI {
         });
 
         JButton amendScoresButton = new JButton("Amend Scores");
-        amendScoresButton.addActionListener(new ActionListener() {
+        recordScoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 amendScores();
@@ -334,82 +329,71 @@ public class CompetitorGUI {
             }
         });
 
-        frame.setLayout(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
+        buttonPanel.add(generateReportButton);
+        buttonPanel.add(searchCompetitorButton);
+        buttonPanel.add(recordScoresButton);
+        buttonPanel.add(amendScoresButton);
+        buttonPanel.add(sortAlphabeticallyButton);
+        buttonPanel.add(sortByIdButton);
+        buttonPanel.add(viewCompetitorDetailsButton);
 
-        frame.add(generateReportButton);
-        frame.add(viewScoresButton);
-        frame.add(searchCompetitorButton);
-        frame.add(recordScoresButton);
-        frame.add(amendScoresButton);
-        frame.add(sortAlphabeticallyButton);
-        frame.add(sortByIdButton);
-        frame.add(viewCompetitorDetailsButton);
+        staffPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        tabbedPane.addTab("Staff", staffPanel);
     }
 
-    private void openAudienceWindow() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void addAudienceTab(JTabbedPane tabbedPane) {
+        JPanel audiencePanel = new JPanel();
+        audiencePanel.setLayout(new BorderLayout());
+
         JTextArea textArea = new JTextArea();
         JScrollPane scrollPane = new JScrollPane(textArea);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        audiencePanel.add(scrollPane, BorderLayout.CENTER);
 
-        JButton viewResultsButton = new JButton("View Results");
-        viewResultsButton.addActionListener(new ActionListener() {
+        JButton generateReportButton = new JButton("Generate Report");
+        generateReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 generateReport(textArea, "FinalReport.txt");
             }
         });
 
-        frame.setLayout(new FlowLayout());
-        frame.add(viewResultsButton);
-
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            CompetitorGUI competitorGUI = new CompetitorGUI(null, null, null);
-            competitorGUI.createAndShowRoleSelection();
+        JButton sortAlphabeticallyButton = new JButton("Show Competitors List: Sort Alphabetically");
+        sortAlphabeticallyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsAlphabetically();
+                viewCompetitors(textArea);
+            }
         });
-    }
 
-    private void viewScores() {
-        try {
-            int competitorNumber = getCompetitorNumberFromUser();
-
-            Competitor competitor = competitorList.getCompetitorByNumber(competitorNumber);
-
-            if (competitor != null) {
-                displayScores(competitor, textArea);
-            } else {
-                textArea.setText("Invalid competitor number. Please try again.");
+        JButton sortByIdButton = new JButton("Show Competitors List: Sort by Competitor Number");
+        sortByIdButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sortCompetitorsById();
+                viewCompetitors(textArea);
             }
+        });
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void displayScores(Competitor competitor, JTextArea textArea) {
-        textArea.setText("");
-        textArea.append("Scores for Competitor " + competitor.getNumber() + ":\n");
-
-        // Retrieve and display scores for the competitor
-        // You may need to modify this part based on your data structure
-        for (CompetitorScores scores : competitorScoresList.getCompetitorScoresList()) {
-            if (scores.getCompetitorNumber() == competitor.getNumber()) {
-                // textArea.append("Round: " + scores.getRound() + "\t");
-                textArea.append("Score: " + scores.displayScoreReport() + "\n");
+        JButton viewCompetitorDetailsButton = new JButton("View Competitor Details");
+        viewCompetitorDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewCompetitorDetails();
             }
-        }
+        });
 
-        System.out.println("Scores displayed in the GUI.");
+        JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
+        buttonPanel.add(generateReportButton);
+        buttonPanel.add(sortAlphabeticallyButton);
+        buttonPanel.add(sortByIdButton);
+        buttonPanel.add(viewCompetitorDetailsButton);
+
+        audiencePanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        tabbedPane.addTab("Audience", audiencePanel);
     }
 
     private void recordScores() {
@@ -620,59 +604,6 @@ public class CompetitorGUI {
             e.printStackTrace();
         }
     }
-
-    // private void generateReport(JTextArea textArea) {
-    // CompetitorList competitorList = new CompetitorList();
-    // CompetitorScoresList competitorScoresList = new
-    // CompetitorScoresList(competitorList.getCompetitors());
-
-    // // Create an instance of Result
-    // Result result = new Result(0, null, null, null);
-
-    // // Finding the competitor with the highest overall score
-    // Competitor highestScorer = result.getCompetitorWithHighestScore(
-    // competitorScoresList.getCompetitorScoresList(),
-    // competitorList.getCompetitors());
-
-    // // Calculating summary statistics
-    // int maxOverallScore =
-    // result.getMaxOverallScore(competitorScoresList.getCompetitorScoresList());
-    // int minOverallScore =
-    // result.getMinOverallScore(competitorScoresList.getCompetitorScoresList());
-    // int totalNumberOfCompetitors =
-    // result.getTotalCompetitors(competitorScoresList.getCompetitorScoresList());
-
-    // // Generating a frequency report
-    // String frequencyReport =
-    // result.getFrequencyOfScoresAsString(competitorScoresList.getCompetitorScoresList());
-
-    // // Append the report to the JTextArea
-    // textArea.append("Competitors Table:\n");
-    // textArea.append("-------------------------------------------------------\n");
-    // competitorList.displayCompetitorsInGUI(textArea);
-
-    // textArea.append("\nThere are a total of " + totalNumberOfCompetitors + "
-    // competitors in the competition.\n");
-
-    // textArea.append("\nDetails of the Competitor with the Highest Overall Score:
-    // \n"
-    // + highestScorer.getName().getFullName() + "\n");
-
-    // textArea.append("-------------------------------------------------------\n");
-    // // ... append details of the highest scorer as in the previous example ...
-
-    // textArea.append("\nSummary Statistics:\n");
-    // textArea.append("-------------------------------------------------------\n");
-    // textArea.append("Maximum Overall Score: " + maxOverallScore + "\n");
-    // textArea.append("Minimum Overall Score: " + minOverallScore + "\n");
-
-    // textArea.append("\nFrequency Report: " + frequencyReport + "\n");
-
-    // textArea.append("-------------------------------------------------------\n");
-
-    // System.out.println("Report generated successfully and displayed in the
-    // GUI.");
-    // }
 
     private void addCompetitor() {
         // Use JOptionPanes to get user input for adding a competitor
