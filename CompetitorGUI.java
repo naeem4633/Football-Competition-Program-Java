@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
@@ -84,7 +86,7 @@ public class CompetitorGUI {
         generateReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generateReport(textArea);
+                generateReport(textArea, "FinalReport.txt");
             }
         });
 
@@ -164,7 +166,7 @@ public class CompetitorGUI {
         generateReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generateReport(textArea);
+                generateReport(textArea, "FinalReport.txt");
             }
         });
 
@@ -270,7 +272,7 @@ public class CompetitorGUI {
         generateReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generateReport(textArea);
+                generateReport(textArea, "FinalReport.txt");
             }
         });
 
@@ -358,7 +360,7 @@ public class CompetitorGUI {
         viewResultsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generateReport(textArea);
+                generateReport(textArea, "FinalReport.txt");
             }
         });
 
@@ -541,7 +543,7 @@ public class CompetitorGUI {
         }
     }
 
-    private void generateReport(JTextArea textArea) {
+    private void generateReport(JTextArea textArea, String fileName) {
         CompetitorList competitorList = new CompetitorList();
         CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
 
@@ -555,15 +557,17 @@ public class CompetitorGUI {
         // Calculating summary statistics
         int maxOverallScore = result.getMaxOverallScore(competitorScoresList.getCompetitorScoresList());
         int minOverallScore = result.getMinOverallScore(competitorScoresList.getCompetitorScoresList());
+        int totalNumberOfCompetitors = result.getTotalCompetitors(competitorScoresList.getCompetitorScoresList());
 
         // Generating a frequency report
-        Map<Integer, Integer> frequencyReport = result
-                .getFrequencyOfScores(competitorScoresList.getCompetitorScoresList());
+        String frequencyReport = result.getFrequencyOfScoresAsString(competitorScoresList.getCompetitorScoresList());
 
         // Append the report to the JTextArea
         textArea.append("Competitors Table:\n");
         textArea.append("-------------------------------------------------------\n");
         competitorList.displayCompetitorsInGUI(textArea);
+
+        textArea.append("\nThere are a total of " + totalNumberOfCompetitors + " competitors in the competition.\n");
 
         textArea.append("\nDetails of the Competitor with the Highest Overall Score: \n"
                 + highestScorer.getName().getFullName() + "\n");
@@ -581,7 +585,94 @@ public class CompetitorGUI {
         textArea.append("-------------------------------------------------------\n");
 
         System.out.println("Report generated successfully and displayed in the GUI.");
+
+        // Save the report to the file
+        saveReportToFile(fileName, competitorList, totalNumberOfCompetitors, highestScorer, maxOverallScore,
+                minOverallScore, frequencyReport);
     }
+
+    private static void saveReportToFile(String fileName, CompetitorList competitorList, int totalNumberOfCompetitors,
+            Competitor highestScorer, int maxOverallScore, int minOverallScore, String frequencyReport) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("Competitors Table:\n");
+            writer.write("-------------------------------------------------------\n");
+            competitorList.displayCompetitors(writer);
+
+            writer.write("\nThere are a total of " + totalNumberOfCompetitors + " competitors in the competition.\n");
+
+            writer.write("\nDetails of the Competitor with the Highest Overall Score: \n"
+                    + highestScorer.getName().getFullName() + "\n");
+
+            writer.write("-------------------------------------------------------\n");
+            // ... display details of the highest scorer as in the previous example ...
+
+            writer.write("\nSummary Statistics:\n");
+            writer.write("-------------------------------------------------------\n");
+            writer.write("Maximum Overall Score: " + maxOverallScore + "\n");
+            writer.write("Minimum Overall Score: " + minOverallScore + "\n");
+
+            writer.write("\nFrequency Report: \n" + frequencyReport + "\n");
+
+            writer.write("-------------------------------------------------------\n");
+
+            System.out.println("Report generated successfully. Check the file: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // private void generateReport(JTextArea textArea) {
+    // CompetitorList competitorList = new CompetitorList();
+    // CompetitorScoresList competitorScoresList = new
+    // CompetitorScoresList(competitorList.getCompetitors());
+
+    // // Create an instance of Result
+    // Result result = new Result(0, null, null, null);
+
+    // // Finding the competitor with the highest overall score
+    // Competitor highestScorer = result.getCompetitorWithHighestScore(
+    // competitorScoresList.getCompetitorScoresList(),
+    // competitorList.getCompetitors());
+
+    // // Calculating summary statistics
+    // int maxOverallScore =
+    // result.getMaxOverallScore(competitorScoresList.getCompetitorScoresList());
+    // int minOverallScore =
+    // result.getMinOverallScore(competitorScoresList.getCompetitorScoresList());
+    // int totalNumberOfCompetitors =
+    // result.getTotalCompetitors(competitorScoresList.getCompetitorScoresList());
+
+    // // Generating a frequency report
+    // String frequencyReport =
+    // result.getFrequencyOfScoresAsString(competitorScoresList.getCompetitorScoresList());
+
+    // // Append the report to the JTextArea
+    // textArea.append("Competitors Table:\n");
+    // textArea.append("-------------------------------------------------------\n");
+    // competitorList.displayCompetitorsInGUI(textArea);
+
+    // textArea.append("\nThere are a total of " + totalNumberOfCompetitors + "
+    // competitors in the competition.\n");
+
+    // textArea.append("\nDetails of the Competitor with the Highest Overall Score:
+    // \n"
+    // + highestScorer.getName().getFullName() + "\n");
+
+    // textArea.append("-------------------------------------------------------\n");
+    // // ... append details of the highest scorer as in the previous example ...
+
+    // textArea.append("\nSummary Statistics:\n");
+    // textArea.append("-------------------------------------------------------\n");
+    // textArea.append("Maximum Overall Score: " + maxOverallScore + "\n");
+    // textArea.append("Minimum Overall Score: " + minOverallScore + "\n");
+
+    // textArea.append("\nFrequency Report: " + frequencyReport + "\n");
+
+    // textArea.append("-------------------------------------------------------\n");
+
+    // System.out.println("Report generated successfully and displayed in the
+    // GUI.");
+    // }
 
     private void addCompetitor() {
         // Use JOptionPanes to get user input for adding a competitor

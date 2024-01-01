@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CompetitorScores {
 
@@ -45,11 +46,18 @@ public class CompetitorScores {
     }
 
     public String getFullDetails() {
-        return "Competitor number " + competitor.getNumber() + ", name " +
-                competitor.getName().getFullName() + ". " +
-                competitor.getName().getFirstName() + " is a " +
-                competitor.getCategory() + " aged " + competitor.getAge() +
-                " and has an overall score of " + getWeightedAverageScore() + ".";
+
+        if (competitor != null) {
+            return "Full details for " + competitor.getNumber() + ":\n" +
+                    "Competitor number " + competitor.getNumber() + ", name " +
+                    competitor.getName().getFullName() + ". " +
+                    competitor.getName().getFirstName() + " is a " +
+                    competitor.getCategory() + " and received these scores: " +
+                    Arrays.toString(getScores()) + "\n" +
+                    "This gives him an overall score of " + getWeightedAverageScore() + ".";
+        } else {
+            return "Competitor scores not found.";
+        }
     }
 
     public String getShortDetails() {

@@ -92,6 +92,28 @@ public class Result {
         return minOverallScore;
     }
 
+    public String getFrequencyOfScoresAsString(ArrayList<CompetitorScores> competitorScoresList) {
+        Map<Integer, Integer> frequencyMap = getFrequencyOfScores(competitorScoresList);
+        StringBuilder result = new StringBuilder();
+
+        result.append("The following individual scores were awarded:\n");
+        result.append(String.format("%-10s", "Score:"));
+
+        // Display the scores
+        for (int score = 1; score <= 5; score++) {
+            result.append(String.format("%-5d", score));
+        }
+
+        result.append("\n").append(String.format("%-10s", "Frequency:"));
+
+        // Display the frequency of each score
+        for (int score = 1; score <= 5; score++) {
+            result.append(String.format("%-5d", frequencyMap.getOrDefault(score, 0)));
+        }
+
+        return result.toString();
+    }
+
     // Find the number of times each individual score was given
     public Map<Integer, Integer> getFrequencyOfScores(ArrayList<CompetitorScores> competitorScoresList) {
         Map<Integer, Integer> frequencyMap = new HashMap<>();
@@ -104,6 +126,17 @@ public class Result {
         }
 
         return frequencyMap;
+    }
+
+    public int getTotalCompetitors(ArrayList<CompetitorScores> competitorScoresList) {
+        Map<Competitor, Boolean> competitorsMap = new HashMap<>();
+
+        for (CompetitorScores competitorScores : competitorScoresList) {
+            Competitor competitor = competitorScores.getCompetitor();
+            competitorsMap.put(competitor, true);
+        }
+
+        return competitorsMap.size();
     }
 
     public double getWeightedAverageScore(int competitorNumber, ArrayList<CompetitorScores> competitorScoresList) {

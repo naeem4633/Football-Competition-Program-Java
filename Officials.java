@@ -13,7 +13,6 @@ public class Officials extends Staff {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void registerCompetitorForCompetition(Competitor competitor,

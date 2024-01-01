@@ -30,16 +30,19 @@ public class Manager {
             // Calculating summary statistics
             int maxOverallScore = result.getMaxOverallScore(competitorScoresList.getCompetitorScoresList());
             int minOverallScore = result.getMinOverallScore(competitorScoresList.getCompetitorScoresList());
+            int totalNumberOfCompetitors = result.getTotalCompetitors(competitorScoresList.getCompetitorScoresList());
 
-            // Generating a frequency report
-            Map<Integer, Integer> frequencyReport = result
-                    .getFrequencyOfScores(competitorScoresList.getCompetitorScoresList());
+            String frequencyReport = result
+                    .getFrequencyOfScoresAsString(competitorScoresList.getCompetitorScoresList());
 
             // Writing the report to a file
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
                 writer.write("Competitors Table:\n");
                 writer.write("-------------------------------------------------------\n");
                 competitorList.displayCompetitors(writer);
+
+                writer.write(
+                        "\nThere are a total of " + totalNumberOfCompetitors + " competitors in the competition.\n");
 
                 writer.write("\nDetails of the Competitor with the Highest Overall Score: \n"
                         + highestScorer.getName().getFullName() + "\n");
