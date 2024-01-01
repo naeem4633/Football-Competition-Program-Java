@@ -26,32 +26,14 @@ public class Staff {
         return accessLevel;
     }
 
-    public Competitor searchCompetitorById(int id, CompetitorList competitorList) throws IOException {
-        // Implement search logic here
-        ArrayList<Competitor> competitors = competitorList.getCompetitors();
-
-        for (Competitor competitor : competitors) {
-            if (competitor.getNumber() == id) {
-                return competitor;
-            }
-        }
-
-        return null;
+    public Competitor searchCompetitorById(int id) throws IOException {
+        CompetitorList competitorList = new CompetitorList();
+        return competitorList.getCompetitorByNumber(id);
     }
 
     public void recordScores(CompetitorScores competitorScores, String scoresFileName) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoresFileName, true))) {
-            // Append new scores to the CSV file
-            writer.write(competitorScores.getCompetitor().getNumber() + ",");
-
-            int[] scores = competitorScores.getScores();
-            for (int score : scores) {
-                writer.write(score + ",");
-            }
-            writer.write("\n");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        CompetitorList competitorList = new CompetitorList();
+        CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
+        competitorScoresList.recordScores(competitorScores, scoresFileName);
     }
 }

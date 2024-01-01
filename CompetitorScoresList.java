@@ -8,9 +8,10 @@ import java.util.ArrayList;
 public class CompetitorScoresList {
 
     private ArrayList<CompetitorScores> competitorScoresList;
+    private String fileName = "CompetitorScores.csv";
 
-    public CompetitorScoresList(String scoresFileName, ArrayList<Competitor> competitorsList) {
-        this.competitorScoresList = readCompetitorScoresFromCSV(scoresFileName, competitorsList);
+    public CompetitorScoresList(ArrayList<Competitor> competitorsList) {
+        this.competitorScoresList = readCompetitorScoresFromCSV(fileName, competitorsList);
     }
 
     private ArrayList<CompetitorScores> readCompetitorScoresFromCSV(String scoresFileName,

@@ -12,9 +12,10 @@ import javax.swing.JTextArea;
 public class CompetitorList {
 
     private ArrayList<Competitor> competitors;
+    private String fileName = "Competitors.csv";
 
-    public CompetitorList(String competitorsFileName) {
-        this.competitors = readCompetitorsFromCSV(competitorsFileName);
+    public CompetitorList() {
+        this.competitors = readCompetitorsFromCSV(this.fileName);
     }
 
     public void displayCompetitors(BufferedWriter writer) throws IOException {
@@ -144,8 +145,7 @@ public class CompetitorList {
         return null; // Return null if no competitor with the specified number is found
     }
 
-    public void amendCompetitorDetails(Competitor competitor, Competitor modifiedCompetition,
-            String competitorsFileName) throws IOException {
+    public void amendCompetitorDetails(Competitor competitor, Competitor modifiedCompetition) throws IOException {
         // Assuming Competitor class has appropriate setters for modification
         competitor.setName(modifiedCompetition.getName());
         competitor.setDateOfBirth(modifiedCompetition.getDateOfBirth());
@@ -154,7 +154,7 @@ public class CompetitorList {
         competitor.setEmail(modifiedCompetition.getEmail());
 
         // Update the details in the Competitors.csv file
-        updateCompetitorDetailsInCSV(competitorsFileName, competitor);
+        updateCompetitorDetailsInCSV(this.fileName, competitor);
     }
 
     private void updateCompetitorDetailsInCSV(String fileName, Competitor competitor) {

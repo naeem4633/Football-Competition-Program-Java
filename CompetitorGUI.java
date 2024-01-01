@@ -495,7 +495,7 @@ public class CompetitorGUI {
                         newEmail);
 
                 // Amend competitor details in the backend
-                competitorList.amendCompetitorDetails(existingCompetitor, modifiedCompetitor, "Competitors.csv");
+                competitorList.amendCompetitorDetails(existingCompetitor, modifiedCompetitor);
 
                 // Show a dialog indicating successful amendment
                 JOptionPane.showMessageDialog(frame, "Competitor details amended successfully!");
@@ -542,9 +542,8 @@ public class CompetitorGUI {
     }
 
     private void generateReport(JTextArea textArea) {
-        CompetitorList competitorList = new CompetitorList("Competitors.csv");
-        CompetitorScoresList competitorScoresList = new CompetitorScoresList("CompetitorScores.csv",
-                competitorList.getCompetitors());
+        CompetitorList competitorList = new CompetitorList();
+        CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
 
         // Create an instance of Result
         Result result = new Result(0, null, null, null);

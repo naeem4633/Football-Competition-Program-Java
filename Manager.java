@@ -17,9 +17,8 @@ public class Manager {
 
     private static void generateReport(String fileName) {
         try {
-            CompetitorList competitorList = new CompetitorList("Competitors.csv");
-            CompetitorScoresList competitorScoresList = new CompetitorScoresList("CompetitorScores.csv",
-                    competitorList.getCompetitors());
+            CompetitorList competitorList = new CompetitorList();
+            CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
 
             // Create an instance of Result
             Result result = new Result(0, null, null, null);
@@ -68,13 +67,13 @@ public class Manager {
         try {
             // Assuming you have a CompetitorList and CompetitorScoresList already
             // initialized
-            CompetitorList competitorList = new CompetitorList("Competitors.csv");
+            CompetitorList competitorList = new CompetitorList();
 
             // Creating a sample Staff object
             Staff staff = new Staff(1, new Name("John", "Doe"), 1);
 
             // Searching for a competitor by ID (replace 1 with the actual ID)
-            Competitor competitor = staff.searchCompetitorById(1, competitorList);
+            Competitor competitor = staff.searchCompetitorById(1);
 
             if (competitor != null) {
                 // Creating a sample CompetitorScores object with competition ID as 1
@@ -95,9 +94,8 @@ public class Manager {
 
     private static void displayCompetitorDetails() {
         try {
-            CompetitorList competitorList = new CompetitorList("Competitors.csv");
-            CompetitorScoresList competitorScoresList = new CompetitorScoresList("CompetitorScores.csv",
-                    competitorList.getCompetitors());
+            CompetitorList competitorList = new CompetitorList();
+            CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
 
             // Read competitor number from the user
             int competitorNumber = getCompetitorNumber();
@@ -141,40 +139,10 @@ public class Manager {
         }
     }
 
-    private static void amendSampleCompetitorDetails() {
-        try {
-            // Create a sample Competitor for modification
-            Competitor sampleCompetitor = new Competitor(3, new Name("John", "Doe"), "2000-01-01", "Category", 25,
-                    "john.doe@example.com");
-
-            // Display original details of the sample competitor
-            System.out.println("Original Details:");
-            displayCompetitorDetails(sampleCompetitor);
-
-            // Creating a sample Officials object
-            Officials officials = new Officials(1, new Name("Official", "Person"), 2);
-
-            // Create a modified Competitor
-            Competitor modifiedCompetitor = new Competitor(3, new Name("Updated", "Person"), "1995-05-05",
-                    "New Category", 27, "updated.person@example.com");
-
-            // Amend the details using Officials class
-            officials.amendCompetitorDetails(sampleCompetitor, modifiedCompetitor, "Competitors.csv");
-
-            // Display updated details of the sample competitor
-            System.out.println("\nUpdated Details:");
-            displayCompetitorDetails(sampleCompetitor);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static void openCompetitorGUI() {
         // Assuming you have a CompetitorList already initialized
-        CompetitorList competitorList = new CompetitorList("Competitors.csv");
-        CompetitorScoresList competitorScoresList = new CompetitorScoresList("CompetitorScores.csv",
-                competitorList.getCompetitors());
+        CompetitorList competitorList = new CompetitorList();
+        CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
         Competition competition = new Competition(1, null, null, null, competitorList);
 
         // Create and display the CompetitorGUI
