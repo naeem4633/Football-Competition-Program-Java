@@ -68,8 +68,8 @@ public class CompetitorScoresList {
         return null; // Return null if not found
     }
 
-    public void recordScores(CompetitorScores competitorScores, String scoresFileName) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoresFileName, true))) {
+    public void recordScores(CompetitorScores competitorScores) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             // Append new scores to the CSV file
             writer.write(competitorScores.getCompetitor().getNumber() + ",");
 
@@ -84,8 +84,7 @@ public class CompetitorScoresList {
         }
     }
 
-    public void amendScores(int competitorID, int competitionID, int[] newScores,
-            String scoresFileName) {
+    public void amendScores(int competitorID, int competitionID, int[] newScores) {
         CompetitorScores targetScores = null;
 
         for (CompetitorScores scores : competitorScoresList) {
@@ -101,7 +100,7 @@ public class CompetitorScoresList {
             targetScores.setScores(newScores);
 
             // Update the details in the CompetitorScores.csv file
-            updateScoresInCSV(scoresFileName, competitorScoresList);
+            updateScoresInCSV(fileName, competitorScoresList);
         } else {
             System.out.println(
                     "Scores not found for Competitor ID " + competitorID + " and Competition ID "

@@ -31,9 +31,15 @@ public class Staff {
         return competitorList.getCompetitorByNumber(id);
     }
 
-    public void recordScores(CompetitorScores competitorScores, String scoresFileName) {
+    public void recordScores(CompetitorScores competitorScores) {
         CompetitorList competitorList = new CompetitorList();
         CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
-        competitorScoresList.recordScores(competitorScores, scoresFileName);
+        competitorScoresList.recordScores(competitorScores);
+    }
+
+    public void amendScores(int competitorID, int competitionID, int[] newScores) {
+        CompetitorList competitorList = new CompetitorList();
+        CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
+        competitorScoresList.amendScores(competitorID, competitionID, newScores);
     }
 }

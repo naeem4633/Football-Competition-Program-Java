@@ -83,7 +83,7 @@ public class Manager {
                 CompetitorScores sampleScores = new CompetitorScores(competitor, new int[] { 1, 2, 3, 4, 5 });
 
                 // Recording the sample score
-                staff.recordScores(sampleScores, "CompetitorScores.csv");
+                staff.recordScores(sampleScores);
 
                 System.out.println("Sample score recorded successfully.");
             } else {

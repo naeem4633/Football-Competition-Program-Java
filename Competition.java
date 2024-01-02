@@ -43,8 +43,8 @@ public class Competition {
         competitorList.addCompetitor(competitor);
     }
 
-    public void removeCompetitor(int competitorNumber) {
-        competitorList.removeCompetitor(competitorNumber);
+    public Competitor removeCompetitor(int competitorNumber) {
+        return competitorList.removeAndReturnCompetitor(competitorNumber);
     }
 
     public boolean hasCompetitorWithEmailAndCategory(String email, String category) {

@@ -50,11 +50,11 @@ public class CompetitorScores {
         if (competitor != null) {
             return "Full details for " + competitor.getNumber() + ":\n" +
                     "Competitor number " + competitor.getNumber() + ", name " +
-                    competitor.getName().getFullName() + ". " +
+                    competitor.getName().getFullName() + ". \n" +
                     competitor.getName().getFirstName() + " is a " +
                     competitor.getCategory() + " and received these scores: " +
                     Arrays.toString(getScores()) + "\n" +
-                    "This gives him an overall score of " + getWeightedAverageScore() + ".";
+                    "Overall score : " + getWeightedAverageScore() + ".";
         } else {
             return "Competitor scores not found.";
         }

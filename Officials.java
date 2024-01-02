@@ -15,13 +15,13 @@ public class Officials extends Staff {
         }
     }
 
-    public void registerCompetitorForCompetition(Competitor competitor,
-            Competition competition) {
+    public void registerCompetitorForCompetition(Competitor competitor) {
+        Competition competition = new Competition(1, null, null, null, null);
         competition.addCompetitor(competitor);
     }
 
-    public void removeCompetitorFromCompetition(Competitor competitor,
-            Competition competition) {
-        competition.removeCompetitor(competitor.getNumber());
+    public Competitor removeAndReturnCompetitorFromCompetition(Competitor competitor) {
+        Competition competition = new Competition(1, null, null, null, null);
+        return competition.removeCompetitor(competitor.getNumber());
     }
 }

@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 
 public class CompetitorGUI {
 
@@ -38,7 +37,7 @@ public class CompetitorGUI {
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3, 1));
-        panel.add(new JLabel("I am:"));
+        panel.add(new JLabel("I am a:"));
         panel.add(roleComboBox);
         panel.add(proceedButton);
 
@@ -410,7 +409,8 @@ public class CompetitorGUI {
                 scores);
 
         // Record scores
-        competitorScoresList.recordScores(competitorScores, "CompetitorScores.csv");
+        Staff staff = new Staff(1, null, 1);
+        staff.recordScores(competitorScores);
 
         // Show a dialog indicating successful recording
         JOptionPane.showMessageDialog(frame, "Scores recorded successfully!");
@@ -429,7 +429,8 @@ public class CompetitorGUI {
                 }
 
                 // Amend scores in the CompetitorScoresList
-                competitorScoresList.amendScores(competitorID, 1, newScores, "CompetitorScores.csv");
+                Staff staff = new Staff(1, null, 1);
+                staff.amendScores(competitorID, 1, newScores);
 
                 // Show a dialog indicating successful amendment
                 JOptionPane.showMessageDialog(frame, "Scores amended successfully!");
@@ -481,7 +482,8 @@ public class CompetitorGUI {
                         newEmail);
 
                 // Amend competitor details in the backend
-                competitorList.amendCompetitorDetails(existingCompetitor, modifiedCompetitor);
+                Officials officials = new Officials(1, null, 1);
+                officials.amendCompetitorDetails(existingCompetitor, modifiedCompetitor);
 
                 // Show a dialog indicating successful amendment
                 JOptionPane.showMessageDialog(frame, "Competitor details amended successfully!");
@@ -490,8 +492,6 @@ public class CompetitorGUI {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Invalid input. Please enter a valid competitor ID and age.");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -639,7 +639,8 @@ public class CompetitorGUI {
                         age, email);
 
                 // Add the new competitor to the list and update the GUI
-                competitorList.addCompetitor(newCompetitor);
+                Officials officials = new Officials(1, null, 1);
+                officials.registerCompetitorForCompetition(newCompetitor);
                 textArea.append("Competitor added:\n" + newCompetitor.toString() + "\n");
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(frame, "Invalid input. Please enter a valid age.");
@@ -656,7 +657,9 @@ public class CompetitorGUI {
                 int competitorNumber = Integer.parseInt(competitorNumberStr);
 
                 // Remove the competitor from the list and update the GUI
-                Competitor removedCompetitor = competitorList.removeAndReturnCompetitor(competitorNumber);
+                Officials officials = new Officials(1, null, 1);
+                Competitor removedCompetitor = officials.removeAndReturnCompetitorFromCompetition(
+                        competitorList.getCompetitorByNumber(competitorNumber));
 
                 if (removedCompetitor != null) {
                     textArea.append("Competitor removed:\n" + removedCompetitor.toString() + "\n");
@@ -709,7 +712,6 @@ public class CompetitorGUI {
                 // Create a new competitor
                 Competitor newCompetitor = new Competitor(number, new Name(firstName, lastName), dateOfBirth, category,
                         age, email);
-
                 // Attempt to register the competitor
                 registerCompetitor(newCompetitor);
             } catch (NumberFormatException ex) {
@@ -724,8 +726,6 @@ public class CompetitorGUI {
         // Check if the email already exists in the competitor list
         if (!competition.hasCompetitorWithEmailAndCategory(competitor.getEmail(), competitor.getCategory())) {
             // Register the competitor
-            // You need to have a reference to the Competition object here
-            // and call the registerForCompetition method
             competition.addCompetitor(competitor);
             System.out.println("Competitor registered successfully!");
         } else {
