@@ -13,6 +13,7 @@ public class CompetitorList {
 
     private ArrayList<Competitor> competitors;
     private String fileName = "Competitors.csv";
+    private static final int EXPECTED_FIELD_COUNT = 7;
 
     public CompetitorList() {
         this.competitors = readCompetitorsFromCSV(this.fileName);
@@ -67,6 +68,10 @@ public class CompetitorList {
         }
     }
 
+    private static boolean isValidCompetitorData(String[] data) {
+        return data.length == EXPECTED_FIELD_COUNT;
+    }
+
     private static ArrayList<Competitor> readCompetitorsFromCSV(String fileName) {
         ArrayList<Competitor> competitors = new ArrayList<>();
 
@@ -74,17 +79,23 @@ public class CompetitorList {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                int number = Integer.parseInt(data[0]);
-                String firstName = data[1];
-                String lastName = data[2];
-                String email = data[3];
-                String dateOfBirth = data[4];
-                String category = data[5];
-                int age = Integer.parseInt(data[6]);
+                // input file validation
+                if (isValidCompetitorData(data)) {
+                    int number = Integer.parseInt(data[0]);
+                    String firstName = data[1];
+                    String lastName = data[2];
+                    String email = data[3];
+                    String dateOfBirth = data[4];
+                    String category = data[5];
+                    int age = Integer.parseInt(data[6]);
 
-                Competitor competitor = new Competitor(number, new Name(firstName, lastName), dateOfBirth, category,
-                        age, email);
-                competitors.add(competitor);
+                    Competitor competitor = new Competitor(number, new Name(firstName, lastName), dateOfBirth, category,
+                            age, email);
+                    competitors.add(competitor);
+                } else {
+                    System.err.println("Invalid data in CSV file: " + line);
+                    // You might want to log this or handle it according to your requirements
+                }
             }
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();

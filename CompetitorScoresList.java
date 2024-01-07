@@ -9,11 +9,17 @@ public class CompetitorScoresList {
 
     private ArrayList<CompetitorScores> competitorScoresList;
     private String fileName = "CompetitorScores.csv";
+    private static final int EXPECTED_FIELD_COUNT = 6;
 
     public CompetitorScoresList(ArrayList<Competitor> competitorsList) {
         this.competitorScoresList = readCompetitorScoresFromCSV(fileName, competitorsList);
     }
 
+    private static boolean isValidCompetitorScoresData(String[] data) {
+        return data.length == EXPECTED_FIELD_COUNT;
+    }
+
+    // Modified readCompetitorScoresFromCSV method
     private ArrayList<CompetitorScores> readCompetitorScoresFromCSV(String scoresFileName,
             ArrayList<Competitor> competitorsList) {
         ArrayList<CompetitorScores> scoresList = new ArrayList<>();
@@ -22,21 +28,26 @@ public class CompetitorScoresList {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                int competitorID = Integer.parseInt(data[0]);
+                if (isValidCompetitorScoresData(data)) {
+                    int competitorID = Integer.parseInt(data[0]);
 
-                // Find the Competitor object based on ID from the provided list
-                Competitor competitor = getCompetitorById(competitorID, competitorsList);
+                    // Find the Competitor object based on ID from the provided list
+                    Competitor competitor = getCompetitorById(competitorID, competitorsList);
 
-                if (competitor != null) {
-                    // Extract scores from the CSV line
-                    int[] scores = new int[data.length - 2];
-                    for (int i = 2; i < data.length; i++) {
-                        scores[i - 2] = Integer.parseInt(data[i]);
+                    if (competitor != null) {
+                        // Extract scores from the CSV line
+                        int[] scores = new int[data.length - 2];
+                        for (int i = 2; i < data.length; i++) {
+                            scores[i - 2] = Integer.parseInt(data[i]);
+                        }
+
+                        // Create CompetitorScores object and add it to the list
+                        CompetitorScores competitorScores = new CompetitorScores(competitor, scores);
+                        scoresList.add(competitorScores);
                     }
-
-                    // Create CompetitorScores object and add it to the list
-                    CompetitorScores competitorScores = new CompetitorScores(competitor, scores);
-                    scoresList.add(competitorScores);
+                } else {
+                    System.err.println("Invalid data in CSV file: " + line);
+                    // You might want to log this or handle it according to your requirements
                 }
             }
         } catch (IOException | NumberFormatException e) {
