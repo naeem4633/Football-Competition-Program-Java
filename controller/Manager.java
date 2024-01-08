@@ -24,7 +24,7 @@ public class Manager {
         CompetitorList competitorList = new CompetitorList();
         CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
 
-        // Create an instance of Result
+        // Create an instance of Result.
         Result result = new Result(0, null, null, null);
 
         result.generateSummaryReport(competitorList, competitorScoresList, fileName);
