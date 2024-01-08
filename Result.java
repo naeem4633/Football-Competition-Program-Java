@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,12 +34,44 @@ public class Result {
         return winnerScores;
     }
 
-    public void generateSummaryReport() {
-        // Implement summary report generation logic
-    }
+    public void generateSummaryReport(CompetitorList competitorList, CompetitorScoresList competitorScoresList,
+            String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            // Finding the competitor with the highest overall score
+            Competitor highestScorer = getCompetitorWithHighestScore(
+                    competitorScoresList.getCompetitorScoresList(), competitorList.getCompetitors());
 
-    public void generateDetailedSummaryReport() {
-        // Implement detailed summary report generation logic
+            // Calculating summary statistics
+            int maxOverallScore = getMaxOverallScore(competitorScoresList.getCompetitorScoresList());
+            int minOverallScore = getMinOverallScore(competitorScoresList.getCompetitorScoresList());
+            int totalNumberOfCompetitors = getTotalCompetitors(competitorScoresList.getCompetitorScoresList());
+
+            String frequencyReport = getFrequencyOfScoresAsString(competitorScoresList.getCompetitorScoresList());
+
+            writer.write("Competitors Table:\n");
+            writer.write("-------------------------------------------------------\n");
+            competitorList.displayCompetitors(writer);
+
+            writer.write("\nThere are a total of " + totalNumberOfCompetitors + " competitors in the competition.\n");
+
+            writer.write("\nDetails of the Competitor with the Highest Overall Score: \n"
+                    + highestScorer.getName().getFullName() + "\n");
+
+            writer.write("-------------------------------------------------------\n");
+
+            writer.write("\nSummary Statistics:\n");
+            writer.write("-------------------------------------------------------\n");
+            writer.write("Maximum Overall Score: " + maxOverallScore + "\n");
+            writer.write("Minimum Overall Score: " + minOverallScore + "\n");
+
+            writer.write("\nFrequency Report: " + frequencyReport + "\n");
+
+            writer.write("-------------------------------------------------------\n");
+
+            System.out.println("Report generated successfully. Check the file: " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // Find the competitor with the highest overall score
@@ -55,8 +90,6 @@ public class Result {
             }
         }
 
-        // Now, use the winnerID to find the competitor's details in the Competitors
-        // list
         for (Competitor competitor : competitorsList) {
             if (competitor.getNumber() == winnerID) {
                 // Create and return the Competitor object with the winner's details

@@ -94,7 +94,6 @@ public class CompetitorList {
                     competitors.add(competitor);
                 } else {
                     System.err.println("Invalid data in CSV file: " + line);
-                    // You might want to log this or handle it according to your requirements
                 }
             }
         } catch (IOException | NumberFormatException e) {
@@ -156,7 +155,7 @@ public class CompetitorList {
         return null; // Return null if no competitor with the specified number is found
     }
 
-    public void amendCompetitorDetails(Competitor competitor, Competitor modifiedCompetition) throws IOException {
+    public void amendCompetitorDetails(Competitor competitor, Competitor modifiedCompetition) {
         // Assuming Competitor class has appropriate setters for modification
         competitor.setName(modifiedCompetition.getName());
         competitor.setDateOfBirth(modifiedCompetition.getDateOfBirth());

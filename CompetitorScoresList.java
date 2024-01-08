@@ -47,7 +47,6 @@ public class CompetitorScoresList {
                     }
                 } else {
                     System.err.println("Invalid data in CSV file: " + line);
-                    // You might want to log this or handle it according to your requirements
                 }
             }
         } catch (IOException | NumberFormatException e) {

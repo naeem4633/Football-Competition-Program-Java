@@ -35,5 +35,5 @@ Minimum Overall Score: 2
 Frequency Report: 
 The following individual scores were awarded:
 Score:    1    2    3    4    5    
-Frequency:25   14   10   9    10   
+Frequency:25   16   10   8    9    
 -------------------------------------------------------

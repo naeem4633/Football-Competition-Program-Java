@@ -35,10 +35,6 @@ public class Competition {
         return competitorList.getCompetitors();
     }
 
-    public void displayCompetitionInfo() {
-        // Implement logic to display competition information
-    }
-
     public void addCompetitor(Competitor competitor) {
         competitorList.addCompetitor(competitor);
     }
@@ -56,4 +52,14 @@ public class Competition {
         }
         return false;
     }
+
+    public void displayCompetitionInfo() {
+        System.out.println("Competition ID: " + ID);
+        System.out.println("Competition Name: " + name);
+        System.out.println("Date: " + date);
+        System.out.println("Location: " + location);
+
+        System.out.println("\nCompetitors:");
+    }
+
 }

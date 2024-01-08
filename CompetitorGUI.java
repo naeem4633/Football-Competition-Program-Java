@@ -83,7 +83,7 @@ public class CompetitorGUI {
         JScrollPane scrollPane = new JScrollPane(textArea);
         competitorPanel.add(scrollPane, BorderLayout.CENTER);
 
-        JButton viewCompetitorsButton = new JButton("View Competitors");
+        JButton viewCompetitorsButton = new JButton("View All Competitors");
         viewCompetitorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,19 +91,11 @@ public class CompetitorGUI {
             }
         });
 
-        JButton generateReportButton = new JButton("Generate Report");
+        JButton generateReportButton = new JButton("View Competition Results");
         generateReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 generateReport(textArea, "FinalReport.txt");
-            }
-        });
-
-        JButton searchCompetitorButton = new JButton("Search Competitor");
-        searchCompetitorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                searchCompetitor(textArea);
             }
         });
 
@@ -144,7 +136,6 @@ public class CompetitorGUI {
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(viewCompetitorsButton);
         buttonPanel.add(generateReportButton);
-        buttonPanel.add(searchCompetitorButton);
         buttonPanel.add(selfRegistrationButton);
         buttonPanel.add(sortAlphabeticallyButton);
         buttonPanel.add(sortByIdButton);
@@ -171,14 +162,6 @@ public class CompetitorGUI {
             }
         });
 
-        JButton searchCompetitorButton = new JButton("Search Competitor");
-        searchCompetitorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                searchCompetitor(textArea);
-            }
-        });
-
         JButton recordScoresButton = new JButton("Record Scores");
         recordScoresButton.addActionListener(new ActionListener() {
             @Override
@@ -195,7 +178,7 @@ public class CompetitorGUI {
             }
         });
 
-        JButton addCompetitorButton = new JButton("Add Competitor");
+        JButton addCompetitorButton = new JButton("Register Competitor For Competition");
         addCompetitorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -203,7 +186,7 @@ public class CompetitorGUI {
             }
         });
 
-        JButton removeCompetitorButton = new JButton("Remove Competitor");
+        JButton removeCompetitorButton = new JButton("Remove Competitor from Competition");
         removeCompetitorButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -247,7 +230,6 @@ public class CompetitorGUI {
 
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(generateReportButton);
-        buttonPanel.add(searchCompetitorButton);
         buttonPanel.add(recordScoresButton);
         buttonPanel.add(amendScoresButton);
         buttonPanel.add(addCompetitorButton);
@@ -275,14 +257,6 @@ public class CompetitorGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 generateReport(textArea, "FinalReport.txt");
-            }
-        });
-
-        JButton searchCompetitorButton = new JButton("Search Competitor");
-        searchCompetitorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                searchCompetitor(textArea);
             }
         });
 
@@ -330,7 +304,6 @@ public class CompetitorGUI {
 
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(generateReportButton);
-        buttonPanel.add(searchCompetitorButton);
         buttonPanel.add(recordScoresButton);
         buttonPanel.add(amendScoresButton);
         buttonPanel.add(sortAlphabeticallyButton);
@@ -350,7 +323,7 @@ public class CompetitorGUI {
         JScrollPane scrollPane = new JScrollPane(textArea);
         audiencePanel.add(scrollPane, BorderLayout.CENTER);
 
-        JButton generateReportButton = new JButton("Generate Report");
+        JButton generateReportButton = new JButton("View Competition Results");
         generateReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -376,19 +349,10 @@ public class CompetitorGUI {
             }
         });
 
-        JButton viewCompetitorDetailsButton = new JButton("View Competitor Details");
-        viewCompetitorDetailsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewCompetitorDetails();
-            }
-        });
-
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(generateReportButton);
         buttonPanel.add(sortAlphabeticallyButton);
         buttonPanel.add(sortByIdButton);
-        buttonPanel.add(viewCompetitorDetailsButton);
 
         audiencePanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -409,8 +373,7 @@ public class CompetitorGUI {
                 scores);
 
         // Record scores
-        Staff staff = new Staff(1, null, 1);
-        staff.recordScores(competitorScores);
+        competitorScoresList.recordScores(competitorScores);
 
         // Show a dialog indicating successful recording
         JOptionPane.showMessageDialog(frame, "Scores recorded successfully!");
@@ -429,8 +392,7 @@ public class CompetitorGUI {
                 }
 
                 // Amend scores in the CompetitorScoresList
-                Staff staff = new Staff(1, null, 1);
-                staff.amendScores(competitorID, 1, newScores);
+                competitorScoresList.amendScores(competitorID, 1, newScores);
 
                 // Show a dialog indicating successful amendment
                 JOptionPane.showMessageDialog(frame, "Scores amended successfully!");
@@ -449,7 +411,7 @@ public class CompetitorGUI {
             if (competitorNumberStr != null) {
                 return Integer.parseInt(competitorNumberStr);
             } else {
-                throw new NumberFormatException(); // Simulate canceling the input dialog
+                throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
             throw new IOException("Invalid input. Please enter a valid competitor number.");
@@ -482,8 +444,7 @@ public class CompetitorGUI {
                         newEmail);
 
                 // Amend competitor details in the backend
-                Officials officials = new Officials(1, null, 1);
-                officials.amendCompetitorDetails(existingCompetitor, modifiedCompetitor);
+                competitorList.amendCompetitorDetails(existingCompetitor, modifiedCompetitor);
 
                 // Show a dialog indicating successful amendment
                 JOptionPane.showMessageDialog(frame, "Competitor details amended successfully!");
@@ -507,24 +468,6 @@ public class CompetitorGUI {
 
     private void sortCompetitorsById() {
         competitorList.sortCompetitorsById();
-    }
-
-    private void searchCompetitor(JTextArea textArea) {
-        try {
-            int competitorNumber = getCompetitorNumberFromUser();
-
-            Competitor competitor = competitorList.getCompetitorByNumber(competitorNumber);
-
-            if (competitor != null) {
-                // displayCompetitorDetails(competitor, textArea);
-                competitorList.displaySingleCompetitorInGUI(competitorNumber, textArea);
-            } else {
-                textArea.setText("Invalid competitor number. Please try again.");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void generateReport(JTextArea textArea, String fileName) {
@@ -639,8 +582,7 @@ public class CompetitorGUI {
                         age, email);
 
                 // Add the new competitor to the list and update the GUI
-                Officials officials = new Officials(1, null, 1);
-                officials.registerCompetitorForCompetition(newCompetitor);
+                competitorList.addCompetitor(newCompetitor);
                 textArea.append("Competitor added:\n" + newCompetitor.toString() + "\n");
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(frame, "Invalid input. Please enter a valid age.");
@@ -657,9 +599,7 @@ public class CompetitorGUI {
                 int competitorNumber = Integer.parseInt(competitorNumberStr);
 
                 // Remove the competitor from the list and update the GUI
-                Officials officials = new Officials(1, null, 1);
-                Competitor removedCompetitor = officials.removeAndReturnCompetitorFromCompetition(
-                        competitorList.getCompetitorByNumber(competitorNumber));
+                Competitor removedCompetitor = competitorList.removeAndReturnCompetitor(competitorNumber);
 
                 if (removedCompetitor != null) {
                     textArea.append("Competitor removed:\n" + removedCompetitor.toString() + "\n");
@@ -726,7 +666,7 @@ public class CompetitorGUI {
         // Check if the email already exists in the competitor list
         if (!competition.hasCompetitorWithEmailAndCategory(competitor.getEmail(), competitor.getCategory())) {
             // Register the competitor
-            competition.addCompetitor(competitor);
+            competitorList.addCompetitor(competitor);
             System.out.println("Competitor registered successfully!");
         } else {
             // Display an error message if the email already exists

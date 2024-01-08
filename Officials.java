@@ -8,11 +8,7 @@ public class Officials extends Staff {
 
     public void amendCompetitorDetails(Competitor competitor, Competitor modifiedCompetitor) {
         CompetitorList competitorList = new CompetitorList();
-        try {
-            competitorList.amendCompetitorDetails(competitor, modifiedCompetitor);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        competitorList.amendCompetitorDetails(competitor, modifiedCompetitor);
     }
 
     public void registerCompetitorForCompetition(Competitor competitor) {
