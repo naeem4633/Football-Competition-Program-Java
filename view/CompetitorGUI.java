@@ -1,4 +1,15 @@
+package view;
+
 import javax.swing.*;
+
+import model.Competition;
+import controller.CompetitorList;
+import controller.CompetitorScoresList;
+import model.Competitor;
+import model.CompetitorScores;
+import model.Name;
+import model.Result;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -587,7 +598,7 @@ public class CompetitorGUI {
 
         Object[] fields = {
                 "Number:", numberField,
-                "Name:", nameField,
+                "Full Name:", nameField,
                 "Date of Birth:", dobField,
                 "Category:", categoryField,
                 "Age:", ageField,

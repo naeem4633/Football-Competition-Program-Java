@@ -1,7 +1,12 @@
+package model;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import controller.CompetitorList;
+import controller.CompetitorScoresList;
 
 public class Staff {
     private int ID;

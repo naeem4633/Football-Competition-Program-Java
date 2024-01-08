@@ -1,4 +1,8 @@
+package model;
+
 import java.util.ArrayList;
+import controller.CompetitorList;
+import model.Competitor;
 
 public class Competition {
     private int ID;

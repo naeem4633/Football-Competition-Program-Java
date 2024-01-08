@@ -1,3 +1,5 @@
+package model;
+
 public class Competitor {
     private int number;
     private Name name;

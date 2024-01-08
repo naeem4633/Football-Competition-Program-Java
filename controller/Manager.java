@@ -1,8 +1,18 @@
+package controller;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import model.Competitor;
+import model.Competition;
+import model.CompetitorScores;
+import model.Name;
+import model.Result;
+import model.Staff;
+import view.CompetitorGUI;
 
 public class Manager {
 

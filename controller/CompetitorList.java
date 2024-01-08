@@ -1,3 +1,5 @@
+package controller;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -8,6 +10,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.JTextArea;
+
+import model.Competitor;
+import model.Name;
 
 public class CompetitorList {
 
@@ -136,10 +141,10 @@ public class CompetitorList {
                 writer.write(competitor.getNumber() + "," +
                         competitor.getName().getFirstName() + "," +
                         competitor.getName().getLastName() + "," +
+                        competitor.getEmail() + "," +
                         competitor.getDateOfBirth() + "," +
                         competitor.getCategory() + "," +
-                        competitor.getAge() + "," +
-                        competitor.getEmail() + "\n");
+                        competitor.getAge() + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -179,10 +184,10 @@ public class CompetitorList {
                     // Update the details for the specific competitor
                     data[1] = competitor.getName().getFirstName();
                     data[2] = competitor.getName().getLastName();
-                    data[3] = competitor.getDateOfBirth();
-                    data[4] = competitor.getCategory();
-                    data[5] = Integer.toString(competitor.getAge());
-                    data[6] = competitor.getEmail();
+                    data[3] = competitor.getEmail();
+                    data[4] = competitor.getDateOfBirth();
+                    data[5] = competitor.getCategory();
+                    data[6] = Integer.toString(competitor.getAge());
                 }
 
                 Competitor updatedCompetitor = new Competitor(number, new Name(data[1],

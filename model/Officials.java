@@ -1,5 +1,9 @@
+package model;
+
 import java.io.*;
 import java.util.ArrayList;
+
+import controller.CompetitorList;
 
 public class Officials extends Staff {
     public Officials(int ID, Name name, int accessLevel) {
