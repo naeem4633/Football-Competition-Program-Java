@@ -99,6 +99,14 @@ public class CompetitorGUI {
             }
         });
 
+        JButton generateShortReportButton = new JButton("View Summary Results");
+        generateShortReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generateShortReport(textArea);
+            }
+        });
+
         JButton selfRegistrationButton = new JButton("Self Registration");
         selfRegistrationButton.addActionListener(new ActionListener() {
             @Override
@@ -136,6 +144,7 @@ public class CompetitorGUI {
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(viewCompetitorsButton);
         buttonPanel.add(generateReportButton);
+        buttonPanel.add(generateShortReportButton);
         buttonPanel.add(selfRegistrationButton);
         buttonPanel.add(sortAlphabeticallyButton);
         buttonPanel.add(sortByIdButton);
@@ -159,6 +168,14 @@ public class CompetitorGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 generateReport(textArea, "FinalReport.txt");
+            }
+        });
+
+        JButton generateShortReportButton = new JButton("View Summary Results");
+        generateShortReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generateShortReport(textArea);
             }
         });
 
@@ -230,6 +247,7 @@ public class CompetitorGUI {
 
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(generateReportButton);
+        buttonPanel.add(generateShortReportButton);
         buttonPanel.add(recordScoresButton);
         buttonPanel.add(amendScoresButton);
         buttonPanel.add(addCompetitorButton);
@@ -257,6 +275,14 @@ public class CompetitorGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 generateReport(textArea, "FinalReport.txt");
+            }
+        });
+
+        JButton generateShortReportButton = new JButton("Generate Summary Results");
+        generateShortReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                generateShortReport(textArea);
             }
         });
 
@@ -304,6 +330,7 @@ public class CompetitorGUI {
 
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(generateReportButton);
+        buttonPanel.add(generateShortReportButton);
         buttonPanel.add(recordScoresButton);
         buttonPanel.add(amendScoresButton);
         buttonPanel.add(sortAlphabeticallyButton);
@@ -401,20 +428,6 @@ public class CompetitorGUI {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Invalid input. Please enter valid numbers.");
-        }
-    }
-
-    private int getCompetitorNumberFromUser() throws IOException {
-        String competitorNumberStr = JOptionPane.showInputDialog(frame, "Enter Competitor Number:");
-
-        try {
-            if (competitorNumberStr != null) {
-                return Integer.parseInt(competitorNumberStr);
-            } else {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
-            throw new IOException("Invalid input. Please enter a valid competitor number.");
         }
     }
 
@@ -516,6 +529,32 @@ public class CompetitorGUI {
         // Save the report to the file
         saveReportToFile(fileName, competitorList, totalNumberOfCompetitors, highestScorer, maxOverallScore,
                 minOverallScore, frequencyReport);
+    }
+
+    private void generateShortReport(JTextArea textArea) {
+        CompetitorList competitorList = new CompetitorList();
+        CompetitorScoresList competitorScoresList = new CompetitorScoresList(competitorList.getCompetitors());
+
+        // Create an instance of Result
+        Result result = new Result(0, null, null, null);
+
+        // Calculating summary statistics
+        int maxOverallScore = result.getMaxOverallScore(competitorScoresList.getCompetitorScoresList());
+        int minOverallScore = result.getMinOverallScore(competitorScoresList.getCompetitorScoresList());
+
+        // Generating a frequency report
+        String frequencyReport = result.getFrequencyOfScoresAsString(competitorScoresList.getCompetitorScoresList());
+
+        textArea.append("\nSummary Statistics:\n");
+        textArea.append("-------------------------------------------------------\n");
+        textArea.append("Maximum Overall Score: " + maxOverallScore + "\n");
+        textArea.append("Minimum Overall Score: " + minOverallScore + "\n");
+
+        textArea.append("\nFrequency Report: " + frequencyReport + "\n");
+
+        textArea.append("-------------------------------------------------------\n");
+
+        System.out.println("Short Report generated successfully and displayed in the GUI.");
     }
 
     private static void saveReportToFile(String fileName, CompetitorList competitorList, int totalNumberOfCompetitors,
