@@ -21,7 +21,7 @@ Competitor 9:	Name: Alex Anderson	Date of Birth: 1985-07-24	Category: Men's Sing
 Competitor 10:	Name: Emma Thomas	Date of Birth: 1991-02-05	Category: Women's Singles	Age: 32	Email: emmathomas@example.com
 -------------------------------------------------------
 
-There are a total of 8 competitors in the competition.
+There are a total of 7 competitors in the competition.
 
 Details of the Competitor with the Highest Overall Score: 
 John Doe
@@ -30,10 +30,10 @@ John Doe
 Summary Statistics:
 -------------------------------------------------------
 Maximum Overall Score: 9
-Minimum Overall Score: 2
+Minimum Overall Score: 3
 
 Frequency Report: 
 The following individual scores were awarded:
 Score:    1    2    3    4    5    
-Frequency:25   16   10   8    9    
+Frequency:6    10   5    3    4    
 -------------------------------------------------------

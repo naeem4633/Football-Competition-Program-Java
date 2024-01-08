@@ -188,7 +188,7 @@ public class CompetitorGUI {
         });
 
         JButton amendScoresButton = new JButton("Amend Scores");
-        recordScoresButton.addActionListener(new ActionListener() {
+        amendScoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 amendScores();
@@ -295,7 +295,7 @@ public class CompetitorGUI {
         });
 
         JButton amendScoresButton = new JButton("Amend Scores");
-        recordScoresButton.addActionListener(new ActionListener() {
+        amendScoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 amendScores();
@@ -358,28 +358,17 @@ public class CompetitorGUI {
             }
         });
 
-        JButton sortAlphabeticallyButton = new JButton("Show Competitors List: Sort Alphabetically");
-        sortAlphabeticallyButton.addActionListener(new ActionListener() {
+        JButton viewCompetitorsButton = new JButton("View All Competitors");
+        viewCompetitorsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sortCompetitorsAlphabetically();
-                viewCompetitors(textArea);
-            }
-        });
-
-        JButton sortByIdButton = new JButton("Show Competitors List: Sort by Competitor Number");
-        sortByIdButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sortCompetitorsById();
                 viewCompetitors(textArea);
             }
         });
 
         JPanel buttonPanel = new JPanel(new GridLayout(0, 2));
         buttonPanel.add(generateReportButton);
-        buttonPanel.add(sortAlphabeticallyButton);
-        buttonPanel.add(sortByIdButton);
+        buttonPanel.add(viewCompetitorsButton);
 
         audiencePanel.add(buttonPanel, BorderLayout.SOUTH);
 
