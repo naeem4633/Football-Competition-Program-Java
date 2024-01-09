@@ -1,0 +1,1 @@
+//Manager class opens up the GUI, which has all the functionality. Any changes to the data are updated instantly.
